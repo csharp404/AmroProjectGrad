@@ -1,0 +1,132 @@
+<!-- Navbar -->
+<div class="navbar">
+    <div style="flex: 1;"></div>
+    <div style="display: flex; gap: 20px;">
+        <div class="dropdown">
+            <button class="dropbtn">مشروع التخرج</button>
+            <div class="dropdown-content">
+                <!-- Use routerLink for navigation -->
+                <a routerLink="/proposal">الوصف المبدئي للمشروع</a>
+                <a routerLink="/documents">وثائق المشاريع</a>
+                <a routerLink="/appointment">طلب اجتماع </a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">التدريب الميداني</button>
+            <div class="dropdown-content">
+                <a routerLink="/internship-request">طلب تدريب</a>
+                <a routerLink="/internship-approval">نموذج طلب الموافقة على التدريب الميداني</a>
+                <a routerLink="/internship-report">نموذج تقرير التدريب الميداني</a>
+                <a routerLink="/internship-evaluation">نموذج تقييم التدريب الميداني للطلاب</a>
+            </div>
+        </div>
+    </div>
+    <div class="dropdown" style="margin-left: 20px; flex: 1; text-align: right;">
+        <!-- Language dropdown - functionality to be implemented in component -->
+        <!-- <button class="dropbtn">Language <i class="fas fa-globe"></i></button> -->
+        <div class="dropdown-content" style="right: 0;">
+            <a href="#" (click)="setLanguage('english')"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/gb.svg" width="20" height="15" style="margin-right: 10px;"> English</a>
+            <a href="#" (click)="setLanguage('arabic')"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/jo.svg" width="20" height="15" style="margin-right: 10px;"> عربي</a>
+        </div>
+    </div>
+    <button class="dropbtn" (click)="logout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+</div>
+
+<!-- Main Content -->
+<div [class.ltr]="currentLanguage === 'english'" style="padding-top: 70px;"> <!-- Add padding to account for fixed navbar -->
+    <h3 class="common-question" id="common-questions-title">{{ commonQuestionsTitle }}</h3>
+
+    <!-- FAQ Cards - Consider making this dynamic with *ngFor -->
+    <div class="card" id="card1">
+        <h3 id="q1">{{ q1 }}</h3><br>
+        <p id="a1">{{ a1 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card2">
+        <h3 id="q2">{{ q2 }}</h3><br>
+        <p id="a2">{{ a2 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card3">
+        <h3 id="q3">{{ q3 }}</h3><br>
+        <p id="a3">{{ a3 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card4">
+        <h3 id="q4">{{ q4 }}</h3><br>
+        <p id="a4">{{ a4 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card5">
+        <h3 id="q5">{{ q5 }}</h3><br>
+        <p id="a5">{{ a5 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card6">
+        <h3 id="q6">{{ q6 }}</h3><br>
+        <p id="a6">{{ a6 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card7">
+        <h3 id="q7">{{ q7 }}</h3><br>
+        <p id="a7">{{ a7 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card8">
+        <h3 id="q8">{{ q8 }}</h3><br>
+        <p id="a8">{{ a8 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card9">
+        <h3 id="q9">{{ q9 }}</h3><br>
+        <p id="a9">{{ a9 }}</p>
+    </div>
+    <br>
+    <div class="card" id="card10">
+        <h3 id="q10">{{ q10 }}</h3><br>
+        <p id="a10">{{ a10 }}</p>
+    </div>
+
+    <footer style="text-align: center; background-color: #0193a0; color: white; padding: 10px 0;" id="footer-content">
+        <div class="cardS1">
+            <p>{{ footerContent }}</p>
+        </div>
+    </footer>
+</div>
+
+<!-- Chat Button -->
+<button class="chat-button" (click)="toggleChat()">
+    <i class="fas fa-comment-dots"></i>
+    <div class="notification-badge" id="notificationBadge" *ngIf="showNotificationBadge">1</div>
+</button>
+
+<!-- Chat Window -->
+<div class="chat-window" id="chatWindow" *ngIf="isChatOpen">
+    <div class="chat-header">
+        <div>
+            <div id="chat-header-title">{{ chatHeaderTitle }}</div>
+            <!-- Doctor Status - Implement logic in component -->
+            <div class="doctor-status">
+                 <span class="status-dot" [style.backgroundColor]="doctorStatus === 'online' ? '#2ecc71' : '#ccc'"></span> {{ doctorStatus }}
+            </div>
+        </div>
+        <span class="close-chat" (click)="toggleChat()">×</span>
+    </div>
+    <div class="chat-messages" id="chatMessages" #chatMessagesContainer>
+        <!-- Messages will be dynamically added here using *ngFor -->
+        <div *ngFor="let msg of messages" class="message" [ngClass]="{'user-message': msg.sender === 'user', 'doctor-message': msg.sender === 'doctor'}">
+            {{ msg.text }}
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="userMessage" placeholder="اكتب رسالتك هنا..." [(ngModel)]="userMessage" (keypress)="handleKeyPress($event)">
+        <button (click)="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Overlay for chat -->
+<div class="overlay" *ngIf="isChatOpen" (click)="toggleChat()"></div>
+
+

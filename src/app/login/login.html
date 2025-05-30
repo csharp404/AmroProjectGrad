@@ -1,0 +1,35 @@
+  <div class="container" id="container">
+
+    <div class="university-header">
+      <img src="assets/standard_jpg.jpg" alt="شعار جامعة آل البيت" class="university-logo">
+      <h2 class="university-name">جامعة آل البيت</h2>
+    </div>
+
+    <div class="button-container" role="radiogroup" aria-label="User Role Selection">
+      <button class="role-button" [class.active]="selectedRole === 'supervisor'" (click)="selectRole('supervisor')" id="supervisorBtn" aria-checked="true">supervisor</button>
+      <button class="role-button" [class.active]="selectedRole === 'student'" (click)="selectRole('student')" id="studentBtn" aria-checked="false">student</button>
+    </div>
+
+    <div class="form-container" [class.active]="selectedRole === 'supervisor'" id="supervisorFormContainer">
+      <form id="supervisorForm" (ngSubmit)="handleLogin('supervisor')">
+        <h1>تسجيل دخول المشرفين</h1>
+        <input type="text" placeholder="ادخل الرقم الوظيفي" [(ngModel)]="supervisorNumber" name="supervisorNumber" maxlength="10" required/>
+        <input type="password" placeholder="ادخل كلمة السر" [(ngModel)]="supervisorPassword" name="supervisorPassword" required/>
+        <div class="error-message" id="loginErrorSupervisor" *ngIf="loginErrorSupervisor">البريد الإلكتروني أو كلمة المرور غير صحيحة</div>
+        <a href="#">هل نسيت كلمة السر?</a>
+        <button type="submit">تسجيل الدخول</button>
+      </form>
+    </div>
+
+    <div class="form-container" [class.active]="selectedRole === 'student'" id="studentFormContainer">
+      <form id="studentForm" (ngSubmit)="handleLogin('student')">
+        <h1>تسجيل دخول الطلاب</h1>
+        <input type="text" placeholder="ادخل الرقم الجامعي" [(ngModel)]="studentNumber" name="studentNumber" maxlength="10" required/>
+        <input type="password" placeholder="ادخل كلمة السر" [(ngModel)]="studentPassword" name="studentPassword" required/>
+        <div class="error-message" id="loginErrorStudent" *ngIf="loginErrorStudent">البريد الإلكتروني أو كلمة المرور غير صحيحة</div>
+        <a href="#">هل نسيت كلمة السر?</a>
+        <button type="submit">تسجيل الدخول</button>
+      </form>
+    </div>
+  </div>
+

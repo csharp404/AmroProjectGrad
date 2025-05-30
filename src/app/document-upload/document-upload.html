@@ -1,0 +1,104 @@
+<div class="container">
+    <h1>Project Documentation Upload</h1>
+
+    <!-- Button to trigger upload popup -->
+    <button class="upload-btn" (click)="showUploadPopup()">Upload Document</button>
+
+    <div class="table-container">
+        <table class="doc-table" id="docTable">
+            <thead>
+                <tr>
+                    <!-- Changed from Document Name to Path/ID for clarity -->
+                    <th>Path/Identifier</th> 
+                    <th>Title</th>
+                    <th>Upload Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Use *ngFor to loop through documents -->
+                <tr *ngFor="let doc of documents; let i = index">
+                    <!-- Display pathDocument or ID as identifier -->
+                    <td>{{ doc.pathDocument || doc.id }}</td> 
+                    <td>{{ doc.title }}</td>
+                    <!-- Use uploadedAt from API -->
+                    <td>{{ doc.uploadedAt | date:'shortDate'}}</td> 
+                    <!-- Use status from API, styled by getStatusClass -->
+                    <td [ngClass]="getStatusClass(doc.status)">{{ doc.status }}</td>
+                    <td>
+                        <!-- Action buttons with (click) handlers -->
+                        <button class="upload-btn" (click)="showStatusPopup(i)">Status</button>
+                        <!-- Pass the full doc object to download function -->
+                        <button class="download-btn" (click)="downloadDocument(doc)" [disabled]="!doc.pathDocument">Download</button> 
+                        <button class="details-btn" (click)="showDetailsPopup(i)">Details</button>
+                    </td>
+                </tr>
+                <tr *ngIf="documents.length === 0 && !isLoading">
+                    <td colspan="5" style="text-align: center; padding: 20px;">No documents uploaded yet.</td>
+                </tr>
+                 <tr *ngIf="isLoading">
+                    <td colspan="5" style="text-align: center;">Loading documents...</td>
+                </tr>
+            </tbody>
+        </table>
+         <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </div>
+
+    <!-- Button to navigate back (assuming a dashboard route exists) -->
+    <button class="dashboard-btn" routerLink="/dashboard">Go to Dashboard</button>
+</div>
+
+<!-- Upload Popup -->
+<div id="uploadPopup" class="popup" *ngIf="isUploadPopupVisible">
+    <div class="popup-content">
+        <h3>Upload Document</h3>
+        <form id="uploadForm" (ngSubmit)="uploadDocument()">
+            <input type="file" id="docFile" name="document" #fileInput (change)="onFileSelected($event)" accept=".pdf,.doc,.docx,.ppt,.pptx" required>
+            <input type="text" id="docTitle" name="title" placeholder="Enter document title" [(ngModel)]="newDocumentTitle" required>
+            <button type="submit" [disabled]="!selectedFile || !newDocumentTitle || isLoading">{{ isLoading ? 'Uploading...' : 'Upload' }}</button>
+            <button type="button" class="cancel-btn" (click)="closePopups()">Cancel</button>
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
+    </div>
+</div>
+
+<!-- Status Change Popup -->
+<div id="statusPopup" class="popup" *ngIf="isStatusPopupVisible">
+    <div class="popup-content">
+        <h3>Change Document Status</h3>
+        <form id="statusForm" (ngSubmit)="changeStatus()">
+            <!-- Assuming API uses numeric status for update -->
+            <select id="docStatus" name="status" [(ngModel)]="selectedStatus" required>
+                <option [ngValue]="0">Pending</option>
+                <option [ngValue]="1">Approved</option>
+                <option [ngValue]="2">Rejected</option>
+            </select>
+            <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Updating...' : 'Update Status' }}</button>
+            <button type="button" class="cancel-btn" (click)="closePopups()">Cancel</button>
+             <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        </form>
+    </div>
+</div>
+
+<!-- Details Popup -->
+<div id="detailsPopup" class="popup" *ngIf="isDetailsPopupVisible && selectedDocument">
+    <div class="popup-content">
+        <h3>Document Details</h3>
+        <div style="text-align: left; margin-bottom: 15px;">
+            <!-- Use correct properties from selectedDocument (ApiDocument) -->
+            <p><strong>Path/Identifier:</strong> {{ selectedDocument.pathDocument || selectedDocument.id }}</p>
+            <p><strong>Title:</strong> {{ selectedDocument.title }}</p>
+            <p><strong>Upload Date:</strong> {{ selectedDocument.uploadedAt | date:'medium'}}</p>
+            <p><strong>Status:</strong> <span [ngClass]="getStatusClass(selectedDocument.status)">{{ selectedDocument.status }}</span></p>
+        </div>
+        <textarea id="doctorMessage" placeholder="Enter doctor's message here" [(ngModel)]="doctorMessage"></textarea>
+        <button (click)="saveDoctorMessage()" [disabled]="isLoading">{{ isLoading ? 'Saving...' : 'Save Message' }}</button>
+        <button (click)="closePopups()">Close</button>
+         <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+    </div>
+</div>
+
+<!-- Overlay for Popups -->
+<div class="popup-overlay" *ngIf="isUploadPopupVisible || isStatusPopupVisible || isDetailsPopupVisible" (click)="closePopups()"></div>
+

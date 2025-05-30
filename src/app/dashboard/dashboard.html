@@ -1,0 +1,101 @@
+<nav class="navbar">
+    <div class="logo">Project Management System</div>
+    <ul>
+        <!-- Use routerLink or (click) handlers -->
+        <li><a href="#" (click)="showProjectsPopup($event)">Projects</a></li>
+        <li><a routerLink="/trainings">Trainings</a></li> <!-- Assuming route exists -->
+        <li><a routerLink="/requests">Requests</a></li> <!-- Assuming route exists -->
+        <li><a routerLink="/messages">Messages</a></li> <!-- Assuming route exists -->
+        <li class="logout"><a routerLink="/login">Logout</a></li> <!-- Navigate to login -->
+    </ul>
+    <!-- Notification bell -->
+    <div class="notification" id="notification-toggle" (click)="toggleNotifications()">
+        🔔
+        <span class="notification-count" id="notification-count" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+    </div>
+    <!-- Dark Mode toggle switch -->
+    <div class="dark-mode-toggle">
+        <label class="switch">
+            <input type="checkbox" id="darkModeSwitch" (change)="toggleDarkMode()" [checked]="isDarkMode">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <!-- Notifications Dropdown -->
+    <div class="notifications" id="notifications" [class.show]="showNotificationsDropdown">
+        <h3>Notifications</h3>
+        <ul>
+            <!-- Example: Use *ngFor for dynamic notifications -->
+            <li *ngFor="let notification of notifications">{{ notification }}</li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Popup for Projects using Bootstrap Card -->
+<div class="projects-overlay" id="popup-overlay" [class.show]="showProjects" (click)="closeProjectsPopup()"></div>
+<div class="projects-popup" id="projects-popup" [class.show]="showProjects">
+    <div class="card">
+        <div class="card-header">
+            Approved Projects
+            <button class="close-btn" id="close-popup" (click)="closeProjectsPopup()">×</button>
+        </div>
+        <div class="card-body">
+            <ul id="projects-list">
+                <!-- Example: Use *ngFor for dynamic projects -->
+                <li *ngFor="let project of approvedProjects">
+                    {{ project.name }}
+                    <span class="badge bg-success">Supervisor: {{ project.supervisor }}, Student: {{ project.student }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="dashboard">
+    <div class="header">
+        <!-- Example: Make name dynamic -->
+        <h2>Welcome, {{ userName }}!</h2>
+        <div class="profile">
+            <!-- Check if profile.jpg exists, otherwise use placeholder -->
+            <img [src]="profileImageUrl" alt="Profile Picture">
+            <span (click)="logout()">Logout</span> <!-- Add logout functionality -->
+        </div>
+    </div>
+
+    <div class="cards">
+        <!-- Example: Make counts dynamic -->
+        <div class="card">
+            <h3>Projects</h3>
+            <p>{{ projectCount }}</p>
+        </div>
+        <div class="card">
+            <h3>Trainings</h3>
+            <p>{{ trainingCount }}</p>
+        </div>
+        <div class="card">
+            <h3>Requests</h3>
+            <p>{{ requestCount }}</p>
+        </div>
+        <div class="card">
+            <h3>Messages</h3>
+            <p>{{ messageCount }}</p>
+        </div>
+    </div>
+
+    <div class="recent-activity">
+        <h3>Recent Activity</h3>
+        <ul>
+            <!-- Example: Use *ngFor for dynamic activity -->
+            <li *ngFor="let activity of recentActivities">{{ activity }}</li>
+        </ul>
+    </div>
+
+    <div class="actions">
+        <!-- Add (click) handlers for actions -->
+        <button (click)="addProject()">Add Project</button>
+        <button (click)="requestTraining()">Request Training</button>
+        <button (click)="viewProjects()">View Projects</button>
+        <button (click)="viewTrainings()">View Trainings</button>
+    </div>
+</div>
+

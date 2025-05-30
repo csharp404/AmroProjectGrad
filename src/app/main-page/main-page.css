@@ -1,0 +1,307 @@
+/* Styles from main.html <style> block */
+:host {
+  display: block; /* Or flex, depending on layout needs */
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #e3e3e3 , #e3e3e3 );
+  min-height: 100vh;
+  direction: rtl; /* Default: RTL */
+  padding-top: 70px; /* Account for fixed navbar */
+}
+
+:host(.ltr) {
+  direction: ltr;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #0193a0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.dropbtn, .navbar button {
+  background: linear-gradient(90deg, #0193a0, white);
+  color: black;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.dropbtn:hover, .navbar button:hover {
+  background: linear-gradient(90deg, white, #0193a0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Styles from main.css for dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0193a0; /* Adjusted from main.html style */
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px; /* Added from main.html style */
+  overflow: hidden; /* Added from main.html style */
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #333; /* Adjusted from main.html style */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #e3e3e3; /* Adjusted from main.html style */
+  color: white; /* Added from main.html style */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Styles from main.css and main.html for card */
+.card {
+  background-color: #e3e3e3 ;
+  padding: 20px;
+  margin: 40px ;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Combined from main.html */
+  direction: rtl; /* Default: RTL */
+  border: 2px solid #0193a0 ; /* Added from main.css */
+  transition: 0.3s; /* Added from main.css */
+}
+
+:host(.ltr) .card {
+  direction: ltr;
+}
+
+.card:hover {
+    transform: scale(1.02); /* Added from main.css */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Added from main.css */
+}
+
+.card h3 {
+    font-weight: bold; /* Added from main.css */
+    margin-bottom: 10px; /* Added from main.css */
+}
+
+/* Styles from main.css for common-question */
+.common-question {
+    text-align: center;
+    text-transform: uppercase; /* Changed from none */
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 28px; /* Increased from main.html */
+    background: linear-gradient(90deg, #0193a0 , #0193a0 );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 15px rgba(0, 114, 255, 0.6);
+    margin-bottom: 30px;
+    margin-top: 20px; /* Added from main.html style */
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 2px 2px 15px rgba(0, 114, 255, 0.6);
+    }
+    to {
+        text-shadow: 4px 4px 20px rgba(0, 198, 255, 0.9);
+    }
+}
+
+/* Chat button styles from main.html */
+.chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(90deg, #0193a0, white);
+  color: black;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-button i {
+  font-size: 24px;
+}
+
+.chat-button:hover {
+  background: linear-gradient(90deg, white, #0193a0);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Chat window styles from main.html */
+.chat-window {
+  /* display: none; /* Controlled by *ngIf */
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background: linear-gradient(90deg, #0193a0, white);
+  color: black;
+  padding: 15px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header .close-chat {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 80%;
+}
+
+.user-message {
+  background-color: #0193a0;
+  color: white;
+  margin-left: auto;
+}
+
+.doctor-message {
+  background-color: #e3e3e3;
+  color: black;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #e3e3e3;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.chat-input button {
+  background: linear-gradient(90deg, #0193a0, white);
+  color: black;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background: linear-gradient(90deg, white, #0193a0);
+}
+
+/* Overlay style from main.html */
+.overlay {
+  /* display: none; /* Controlled by *ngIf */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* Notification badge style from main.html */
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Doctor status style from main.html */
+.doctor-status {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  /* background-color: #2ecc71; /* Color set dynamically */
+  margin-right: 5px;
+}
+
+/* Footer style from main.html */
+footer {
+  text-align: center;
+  background-color: #0193a0;
+  color: white;
+  padding: 10px 0;
+}
+
+/* Ensure Font Awesome is loaded globally or imported */
+/* Add any other necessary global styles or imports */
+

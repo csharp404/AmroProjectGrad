@@ -1,0 +1,152 @@
+/* Styles from grad.css adapted for component context */
+:host {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Ensure component takes height */
+    background-color: #e3e3e3;
+    padding: 20px; /* Add padding around the container */
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    padding: 30px; /* Increased padding */
+    width: 100%; /* Let it take available width within host padding */
+    max-width: 1200px;
+    /* margin: 20px; /* Removed, handled by host padding */
+    color: #333; /* Default text color */
+}
+
+.container h1, .container h2 {
+    text-align: center;
+    margin-bottom: 25px; /* Increased margin */
+    color: #0193a0;
+    font-weight: 600;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 30px; /* Increased margin */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #0193a0;
+    color: #fff;
+}
+
+th, td {
+    padding: 15px; /* Increased padding */
+    text-align: center;
+    border: none; /* Remove individual cell borders */
+    border-bottom: 1px solid #ddd; /* Add bottom border for rows */
+    vertical-align: middle;
+}
+
+thead th {
+    border-bottom: 2px solid #007a82; /* Stronger header border */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status specific styling */
+td.status-confirmed {
+    color: #198754; /* Green */
+    font-weight: 500;
+}
+
+td.status-pending {
+    color: #ffc107; /* Yellow */
+    font-weight: 500;
+}
+
+td.status-cancelled {
+    color: #dc3545; /* Red */
+    font-weight: 500;
+    text-decoration: line-through;
+}
+
+.form-container {
+    margin-top: 30px; /* Increased margin */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Increased gap */
+}
+
+.form-container h2 {
+    margin-bottom: 15px;
+    font-size: 1.3em;
+}
+
+.form-container input[type="date"] {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+.form-container input[type="date"]:focus {
+    outline: none;
+    border-color: #0193a0;
+    box-shadow: 0 0 0 2px rgba(1, 147, 160, 0.2);
+}
+
+.form-container button {
+    background-color: #0193a0;
+    color: #fff;
+    padding: 12px 25px; /* Adjusted padding */
+    border: none;
+    border-radius: 5px;
+    font-size: 15px; /* Slightly larger font */
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start; /* Align button to start */
+}
+
+.form-container button:hover {
+    background-color: #007a82;
+    transform: translateY(-2px);
+}
+
+.form-container button:active {
+    transform: translateY(0);
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    th, td {
+        padding: 10px;
+    }
+    .form-container button {
+        width: 100%;
+        text-align: center;
+    }
+}
+

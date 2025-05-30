@@ -1,0 +1,300 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align container to top */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    padding: 40px;
+    box-sizing: border-box;
+    direction: rtl; /* Right-to-left for Arabic */
+}
+
+.form-container {
+    background: #ffffff;
+    padding: 30px 40px; /* Increased padding */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 850px; /* Slightly wider */
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px; /* Increased margin */
+    font-size: 28px;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 15px;
+}
+
+.section {
+    margin-bottom: 30px; /* Increased margin */
+}
+
+h2 {
+    color: #2980b9;
+    font-size: 22px; /* Slightly larger */
+    margin-bottom: 20px;
+    border-right: 4px solid #3498db;
+    padding-right: 12px;
+}
+
+h3 {
+    color: #34495e;
+    font-size: 18px; /* Slightly larger */
+    margin-top: 20px; /* Add top margin */
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    color: #34495e;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 15px; /* Slightly larger */
+}
+
+input[type="text"],
+input[type="email"],
+textarea,
+input[type="date"],
+select {
+    width: 100%;
+    padding: 12px 15px; /* Adjusted padding */
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #2c3e50;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fdfdfe; /* Light background */
+    box-sizing: border-box; /* Ensure padding included in width */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+textarea {
+    min-height: 100px; /* Use min-height */
+    resize: vertical;
+}
+
+/* Style multiple student name/ID inputs */
+.form-row input[type="text"] {
+    margin-bottom: 10px; /* Add space between stacked inputs */
+}
+.form-row input[type="text"]:last-child {
+    margin-bottom: 0;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 25px; /* Increased gap */
+    margin-bottom: 20px;
+}
+
+.form-row > div {
+    flex: 1;
+    min-width: 250px; /* Minimum width before wrapping */
+}
+
+/* Spacing for labels and inputs */
+label + input,
+label + textarea,
+label + select {
+    margin-top: 5px;
+}
+
+/* Add space below textareas and specific inputs */
+textarea,
+input#project-title,
+input#project-number {
+    margin-bottom: 15px;
+}
+
+/* Select specific styling */
+select {
+    background: linear-gradient(135deg, #ffffff, #f5f7fa);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+    appearance: none;
+    cursor: pointer;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%2334495e" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: left 15px center; /* Adjusted position */
+    padding-left: 40px; /* Increased padding for icon */
+}
+
+select:hover {
+    border-color: #a5b1c2; /* Subtle hover border */
+}
+
+/* Gantt Chart Form */
+.gantt-form {
+    margin-top: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.gantt-form label {
+    margin-bottom: 0; /* Remove bottom margin for inline labels */
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.gantt-form input[type="text"],
+.gantt-form input[type="date"] {
+    padding: 8px 10px; /* Smaller padding */
+    font-size: 13px;
+    flex-grow: 1; /* Allow inputs to grow */
+    min-width: 120px;
+}
+
+.gantt-form button {
+    background: #5cb85c; /* Green color for add */
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    margin: 0; /* Reset margin */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.gantt-form button:hover {
+    background: #4cae4c;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Gantt Chart Display */
+.gantt-chart-container {
+    margin-top: 20px;
+}
+
+.gantt-chart-container h4 {
+    color: #34495e;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.gantt-chart {
+    position: relative;
+    min-height: 150px; /* Minimum height */
+    height: auto; /* Adjust height based on tasks */
+    max-height: 400px; /* Max height before scroll */
+    border: 1px solid #ccc;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    overflow: auto; /* Enable scrollbars */
+    margin-bottom: 20px;
+}
+
+.task-bar {
+    position: absolute;
+    height: 28px; /* Slightly smaller */
+    color: white;
+    padding: 4px 8px; /* Adjusted padding */
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 20px; /* Center text vertically */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease;
+}
+
+/* Tooltip for task description */
+.task-bar:hover::after {
+    content: attr(data-description);
+    position: absolute;
+    bottom: 100%; /* Position above the bar */
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px); /* Adjust position */
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: normal;
+    z-index: 10;
+    width: max-content; /* Adjust width to content */
+    max-width: 250px;
+    text-align: center;
+    pointer-events: none; /* Prevent tooltip from interfering */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.task-bar:hover::after {
+    opacity: 1;
+}
+
+/* Department Message */
+.department-message {
+    color: #e74c3c; /* Red color for error/warning */
+    font-size: 13px;
+    margin-top: 8px;
+    text-align: right;
+    font-weight: normal;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background: linear-gradient(90deg, #3498db, #2980b9);
+    color: white;
+    padding: 12px 35px; /* Adjusted padding */
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 0; /* Increased top margin */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(90deg, #2980b9, #3498db);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+button[type="submit"]:disabled {
+    background: #bdc3c7;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .gantt-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .gantt-form input, .gantt-form button {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+

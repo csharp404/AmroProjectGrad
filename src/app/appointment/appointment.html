@@ -1,0 +1,51 @@
+<div class="container">
+    <h1>جدول المواعيد</h1>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>التاريخ</th>
+                    <th>الوقت</th>
+                    <!-- Removed student/supervisor names as they are not in API response -->
+                    <!-- <th>اسم الطالب</th> -->
+                    <!-- <th>اسم المشرف</th> -->
+                    <th>الحالة</th>
+                </tr>
+            </thead>
+            <tbody id="appointmentTableBody">
+                <!-- Use *ngFor to loop through appointments data -->
+                <tr *ngFor="let appointment of appointments">
+                    <!-- Display date and time from API -->
+                    <td>{{ appointment.dateAppointment | date:"yyyy-MM-dd" }}</td>
+                    <td>{{ appointment.timeAppointment }}</td>
+                    <!-- Removed student/supervisor names -->
+                    <!-- <td>{{ appointment.studentName }}</td> -->
+                    <!-- <td>{{ appointment.supervisorName }}</td> -->
+                    <!-- Use ngClass and text based on API status field ("stauts") -->
+                    <td [ngClass]="getAppointmentStatusClass(appointment.stauts)">
+                        {{ getAppointmentStatusText(appointment.stauts) }}
+                    </td>
+                </tr>
+                <tr *ngIf="appointments.length === 0 && !isLoading">
+                    <td colspan="3" style="text-align: center;">لا توجد مواعيد لعرضها.</td>
+                </tr>
+                <tr *ngIf="isLoading">
+                    <td colspan="3" style="text-align: center;">جار التحميل...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-container">
+        <!-- Use Angular forms for submission -->
+        <form id="appointmentForm" (ngSubmit)="requestAppointment()">
+            <h2>طلب موعد جديد</h2>
+            <!-- Bind input to component property -->
+            <input type="date" id="date" placeholder="التاريخ" [(ngModel)]="newAppointmentDate" name="newAppointmentDate" required />
+            <input type="time" id="time" placeholder="الوقت" [(ngModel)]="newAppointmentTime" name="newAppointmentTime" required />
+            <button type="submit" [disabled]="isLoading">{{ isLoading ? 'جار الإرسال...' : 'طلب موعد' }}</button>
+            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+            <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+        </form>
+    </div>
+</div>
+

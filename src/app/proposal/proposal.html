@@ -1,0 +1,100 @@
+<form class="form-container" id="proposalForm" (ngSubmit)="submitProposal()" #proposalNgForm="ngForm">
+    <h1>اقتراح مشروع التخرج</h1>
+
+    <!-- معلومات الطالب -->
+    <div class="section">
+        <h2>معلومات الطالب</h2>
+        <div class="form-row">
+            <div>
+                <label for="student-name-1">اسم الطالب</label>
+                <!-- Use ngModel for data binding -->
+                <input type="text" id="student-name-1" placeholder="أدخل اسمك الكامل" [(ngModel)]="studentInfo.name1" name="studentName1" required>
+                <input type="text" id="student-name-2" placeholder="أدخل اسمك الكامل" [(ngModel)]="studentInfo.name2" name="studentName2">
+                <input type="text" id="student-name-3" placeholder="أدخل اسمك الكامل" [(ngModel)]="studentInfo.name3" name="studentName3">
+                <input type="text" id="student-name-4" placeholder="أدخل اسمك الكامل" [(ngModel)]="studentInfo.name4" name="studentName4">
+                <br><br>
+                <label for="department-1">القسم</label>
+                <select id="department-1" [(ngModel)]="studentInfo.departmentId" name="department1" required (change)="validateDepartment()">
+                    <option value="" disabled selected>اختر قسمك</option>
+                    <!-- Populate options dynamically if possible -->
+                    <option value="75A36EE9-6EF6-44E7-A028-7EB53F1377AF">💻 قسم علم الحاسوب</option>
+                    <option value="ANOTHER_GUID_FOR_IS">📊 قسم نظم المعلومات</option> <!-- Use correct GUID -->
+                </select>
+                <div class="department-message" id="department-message" *ngIf="departmentMessage">{{ departmentMessage }}</div>
+            </div>
+
+            <div>
+                <label for="student-id-1">رقم الطالب</label>
+                <input type="text" id="student-id-1" placeholder="أدخل رقمك الجامعي" [(ngModel)]="studentInfo.id1" name="studentId1" required>
+                <input type="text" id="student-id-2" placeholder="أدخل رقمك الجامعي" [(ngModel)]="studentInfo.id2" name="studentId2">
+                <input type="text" id="student-id-3" placeholder="أدخل رقمك الجامعي" [(ngModel)]="studentInfo.id3" name="studentId3">
+                <input type="text" id="student-id-4" placeholder="أدخل رقمك الجامعي" [(ngModel)]="studentInfo.id4" name="studentId4">
+                <br><br>
+                <label for="department-2">الأستاذ</label>
+                <select id="department-2" [(ngModel)]="studentInfo.supervisorId" name="supervisorId" required>
+                    <option value="" disabled selected>اختر الدكتور</option>
+                    <!-- Populate options dynamically if possible -->
+                    <option value="bd899406-ea32-4cea-9185-e9d059d14e5d">د. محمد</option>
+                    <option value="ANOTHER_GUID_FOR_AHMED">د. أحمد</option> <!-- Use correct GUID -->
+                    <option value="ANOTHER_GUID_FOR_AMRO">د. عمرو</option> <!-- Use correct GUID -->
+                    <option value="ANOTHER_GUID_FOR_KHALED">د. خالد</option> <!-- Use correct GUID -->
+                    <option value="ANOTHER_GUID_FOR_SAMIA">د. سامية</option> <!-- Use correct GUID -->
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- تفاصيل المشروع -->
+    <div class="section">
+        <h2>تفاصيل المشروع</h2>
+        <label for="project-title">عنوان المشروع</label>
+        <input type="text" id="project-title" placeholder="أدخل عنوان المشروع" [(ngModel)]="projectDetails.title" name="projectTitle" required>
+        <br><br>
+        <label for="project-number">رقم المشروع</label>
+        <input type="text" id="project-number" placeholder="أدخل رقم المشروع" [(ngModel)]="projectDetails.number" name="projectNumber" required>
+        <br><br>
+        <label for="description">وصف المشروع</label>
+        <textarea id="description" placeholder="صف مشروعك بالتفصيل..." [(ngModel)]="projectDetails.description" name="description" required maxlength="300"></textarea>
+        <br><br>
+        <label for="objectives">أهداف المشروع</label>
+        <textarea id="objectives" placeholder="سرد الأهداف الرئيسية لمشروعك..." [(ngModel)]="projectDetails.objectives" name="objectives" required maxlength="300"></textarea>
+    </div>
+
+    <!-- الجدول الزمني -->
+    <div class="section">
+        <h2>الجدول الزمني</h2>
+        <label for="timeline-text">الجدول الزمني المقترح (نص)</label>
+        <textarea id="timeline-text" placeholder="قدم الجدول الزمني لمشروعك (مثل المعالم والمواعيد النهائية)..." [(ngModel)]="timelineText" name="timelineText" required></textarea>
+        <br><br>
+        <h3>إضافة المهام إلى مخطط جانت</h3>
+        <div class="gantt-form">
+            <input type="text" id="taskName" placeholder="اسم المهمة" [(ngModel)]="newTask.name" name="newTaskName">
+            <label for="startDate">تاريخ البدء:</label>
+            <input type="date" id="startDate" [(ngModel)]="newTask.start" name="newTaskStart">
+            <label for="endDate">تاريخ الانتهاء:</label>
+            <input type="date" id="endDate" [(ngModel)]="newTask.end" name="newTaskEnd">
+            <input type="text" id="taskDescription" placeholder="وصف المهمة" [(ngModel)]="newTask.description" name="newTaskDescription">
+            <button type="button" (click)="addTask()" [disabled]="!newTask.name || !newTask.start || !newTask.end">إضافة مهمة</button>
+        </div>
+        <!-- Gantt Chart Placeholder - Requires a library like D3, ngx-gantt, etc. -->
+        <div class="gantt-chart-container">
+            <h4>مخطط جانت (تمثيل بسيط)</h4>
+            <div class="gantt-chart" id="gantt">
+                <div *ngFor="let task of tasks; let i = index" 
+                     class="task-bar" 
+                     [style.left.%]="calculateTaskStartOffset(task)" 
+                     [style.width.%]="calculateTaskWidth(task)" 
+                     [style.top.px]="i * 40" 
+                     [style.background-color]="getTaskColor(i)"
+                     [attr.data-description]="task.description">
+                    {{ task.name }}
+                </div>
+                <div *ngIf="tasks.length === 0" style="text-align: center; padding-top: 50px; color: #888;">أضف مهام لعرض المخطط</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر الإرسال -->
+    <button type="submit" [disabled]="proposalNgForm.invalid">إرسال الاقتراح</button>
+</form>
+
